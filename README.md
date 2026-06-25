@@ -5,6 +5,11 @@ stop sequence from a .NET backend (route optimised with Haversine distances +
 Dijkstra), guides the collector through a barcode-gated scan-and-collect flow,
 and produces a trip report that syncs to the backend.
 
+## Demo Video
+
+Google Drive Demo:
+https://drive.google.com/file/d/1lOeWRxT4zRCLlCTXDeTaJzL3TfqYaDLx/view?usp=sharing
+
 ## Architecture
 
 ```
@@ -95,12 +100,26 @@ needing artificial intermediate nodes.
 
 ## Deploying for submission
 
-- **Backend**: deploy `WasteGlassApi` to a free tier (Railway/Render/Azure).
-  Set the `Firebase:ProjectId` config value and upload `firebase-key.json` as
-  a secret file/environment variable on the host — don't bake it into the image.
-- **App**: update `Constants.baseUrl` to the deployed URL, then
-  `flutter build apk --release`. The submitted APK must point at this URL,
-  not localhost.
+### Hosted Backend
+
+Test Endpoint:
+https://waste-glass-collection-a6byhpa3axdqf0e6.centralindia-01.azurewebsites.net/api/route/optimised
+
+### Demo Video
+
+Google Drive Demo:
+https://drive.google.com/file/d/1lOeWRxT4zRCLlCTXDeTaJzL3TfqYaDLx/view?usp=sharing
+
+### App Configuration
+
+Update `lib/utils/constants.dart`:
+
+```dart
+class Constants {
+  static const String baseUrl =
+      'https://waste-glass-collection-a6byhpa3axdqf0e6.centralindia-01.azurewebsites.net';
+}
+```
 
 ## Project structure
 
