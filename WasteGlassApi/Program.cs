@@ -1,17 +1,25 @@
+using Google.Apis.Auth.OAuth2;
 using Google.Cloud.Firestore;
 using WasteGlassApi.Services;
 using WasteGlassApi.Seed;
 
 var builder = WebApplication.CreateBuilder(args);
 
-Environment.SetEnvironmentVariable(
-    "GOOGLE_APPLICATION_CREDENTIALS",
-    Path.Combine(Directory.GetCurrentDirectory(), "firebase-key.json")
-);
-
 builder.Services.AddSingleton(_ =>
-    FirestoreDb.Create(builder.Configuration["Firebase:ProjectId"])
-);
+{
+    // Hosted environments pass the service account JSON as a secret env var.
+    // Local dev falls back to the gitignored key file on disk.
+    var credentialsJson = Environment.GetEnvironmentVariable("FIREBASE_CREDENTIALS_JSON");
+    var credential      = !string.IsNullOrEmpty(credentialsJson)
+        ? GoogleCredential.FromJson(credentialsJson)
+        : GoogleCredential.FromFile(Path.Combine(Directory.GetCurrentDirectory(), "firebase-key.json"));
+
+    return new FirestoreDbBuilder
+    {
+        ProjectId        = builder.Configuration["Firebase:ProjectId"],
+        GoogleCredential = credential,
+    }.Build();
+});
 
 builder.Services.AddSingleton<FirebaseService>();
 builder.Services.AddSingleton<RouteService>();
