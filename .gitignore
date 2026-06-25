@@ -9,7 +9,8 @@ WasteGlassApi/obj/
 waste_glass_collection/build/
 waste_glass_collection/.dart_tool/
 
-# IDE
+# IDE / local tooling
 .vs/
 .idea/
 *.user
+.claude/
