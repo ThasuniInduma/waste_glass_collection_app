@@ -10,6 +10,10 @@ builder.Services.AddSingleton(_ =>
     // Hosted environments pass the service account JSON as a secret env var.
     // Local dev falls back to the gitignored key file on disk.
     var credentialsJson = Environment.GetEnvironmentVariable("FIREBASE_CREDENTIALS_JSON");
+    Console.WriteLine(string.IsNullOrEmpty(credentialsJson)
+        ? "FIREBASE_CREDENTIALS_JSON is NOT set - falling back to local firebase-key.json"
+        : $"FIREBASE_CREDENTIALS_JSON is set ({credentialsJson.Length} chars) - using it");
+
     var credential      = !string.IsNullOrEmpty(credentialsJson)
         ? GoogleCredential.FromJson(credentialsJson)
         : GoogleCredential.FromFile(Path.Combine(Directory.GetCurrentDirectory(), "firebase-key.json"));
