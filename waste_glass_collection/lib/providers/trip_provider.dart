@@ -40,9 +40,16 @@ class TripProvider extends ChangeNotifier {
       final result    = await _api.getRoute();
       suppliers       = result.suppliers;
       routeDistanceKm = result.routeDistanceKm;
-      currentIndex    = 0;
-      _tripStart      = DateTime.now();
-      _tripEnd        = null;
+
+      // Resume from wherever the backend says the trip actually is —
+      // don't assume a fresh fetch means a fresh trip.
+      final firstPending = suppliers.indexWhere((s) => s.status != 'Collected');
+      currentIndex        = firstPending == -1 ? suppliers.length : firstPending;
+
+      _tripStart = DateTime.now();
+      _tripEnd   = currentIndex >= suppliers.length && suppliers.isNotEmpty
+          ? DateTime.now()
+          : null;
     } catch (e) {
       error = 'Could not load route. Check your connection.';
     }

@@ -82,6 +82,28 @@ namespace WasteGlassApi.Seed
                     { "stopOrder",  0 },
                     { "tripDate",   today }
                 },
+                new() {
+                    { "id",         "SUP006" },
+                    { "name",       "Southern Glass Galle" },
+                    { "lat",        6.0535 },
+                    { "lng",        80.2210 },
+                    { "expectedKg", 40.0 },
+                    { "barcodeId",  "SUP006" },
+                    { "status",     "Pending" },
+                    { "stopOrder",  0 },
+                    { "tripDate",   today }
+                },
+                new() {
+                    { "id",         "SUP007" },
+                    { "name",       "Kalutara Bottle Bank" },
+                    { "lat",        6.5854 },
+                    { "lng",        79.9607 },
+                    { "expectedKg", 25.0 },
+                    { "barcodeId",  "SUP007" },
+                    { "status",     "Pending" },
+                    { "stopOrder",  0 },
+                    { "tripDate",   today }
+                },
             };
 
             foreach (var s in suppliers)
