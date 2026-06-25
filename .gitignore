@@ -1,0 +1,15 @@
+# Firebase service account — never commit credentials
+WasteGlassApi/firebase-key.json
+
+# .NET build output
+WasteGlassApi/bin/
+WasteGlassApi/obj/
+
+# Flutter build output (mirrors waste_glass_collection/.gitignore for safety)
+waste_glass_collection/build/
+waste_glass_collection/.dart_tool/
+
+# IDE
+.vs/
+.idea/
+*.user
